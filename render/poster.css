@@ -1,0 +1,94 @@
+/* =============================================================================
+   STUDIO GRAPHISME — Design System
+   A charger dans chaque gabarit :  <link rel="stylesheet" href="../render/poster.css">
+   Puis surcharger les tokens dans le <style> du poster.
+   ========================================================================== */
+@import url("../fonts/fonts.css");
+
+/* --- Reset cible-poster ---------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: #0c0c0c; }
+body {
+  display: grid; place-items: center;
+  min-height: 100vh; padding: 0;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
+}
+img, svg { display: block; max-width: 100%; }
+
+/* --- Tokens (surchargeables par poster) ------------------------------------ */
+:root {
+  /* Roles typographiques — les 11 polices du pack */
+  --f-display:  "Bricolage Grotesque", system-ui, sans-serif; /* display moderne */
+  --f-grotesk:  "Space Grotesk", system-ui, sans-serif;       /* titres nets */
+  --f-sans:     "Inter", system-ui, sans-serif;               /* corps / labels */
+  --f-archivo:  "Archivo", system-ui, sans-serif;             /* sans poster gras */
+  --f-arty:     "Syne", system-ui, sans-serif;                /* display arty */
+  --f-round:    "Unbounded", system-ui, sans-serif;           /* display rond */
+  --f-condensed:"Big Shoulders Display", system-ui, sans-serif;/* condense affiche */
+  --f-heavy:    "Anton", system-ui, sans-serif;               /* masse / impact */
+  --f-serif:    "Fraunces", Georgia, serif;                   /* serif display opsz */
+  --f-editorial:"Instrument Serif", Georgia, serif;           /* serif editorial fin */
+  --f-fashion:  "DM Serif Display", Georgia, serif;           /* serif haute-mode */
+
+  /* Palette par defaut (neutre sophistiquee — a surcharger) */
+  --ink:   #111111;
+  --paper: #f4f1ea;
+  --accent:#e4483d;
+  --muted: #7a756c;
+
+  /* Rythme */
+  --pad: 7%;
+}
+
+/* --- Le poster ------------------------------------------------------------- */
+.poster {
+  position: relative;
+  width: var(--pw, 1080px);
+  height: var(--ph, 1350px);
+  background: var(--paper);
+  color: var(--ink);
+  overflow: hidden;
+  isolation: isolate; /* pour blend-modes internes */
+}
+
+/* --- Formats prets a l'emploi ---------------------------------------------- */
+/* Reseaux sociaux (px) */
+.format-portrait { --pw: 1080px; --ph: 1350px; }  /* post Insta/FB 4:5 */
+.format-square   { --pw: 1080px; --ph: 1080px; }  /* post carre 1:1 */
+.format-story    { --pw: 1080px; --ph: 1920px; }  /* story / reel 9:16 */
+.format-wide     { --pw: 1920px; --ph: 1080px; }  /* banniere / paysage 16:9 */
+/* Impression (mm -> PDF a la bonne taille physique) */
+.format-a3       { --pw: 297mm; --ph: 420mm; }
+.format-a4       { --pw: 210mm; --ph: 297mm; }
+.format-a5       { --pw: 148mm; --ph: 210mm; }
+.format-flyer-dl { --pw: 99mm;  --ph: 210mm; }    /* DL / tri-fold panel */
+.format-letter   { --pw: 8.5in; --ph: 11in; }
+
+/* --- Grain / bruit (overlay) ----------------------------------------------- */
+/* <div class="grain"></div> en dernier enfant du .poster */
+.grain {
+  position: absolute; inset: 0; z-index: 50; pointer-events: none;
+  opacity: .06; mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+.grain--soft { opacity: .04; }
+.grain--strong { opacity: .10; }
+
+/* --- Helpers ---------------------------------------------------------------- */
+.stack { display: flex; flex-direction: column; }
+.row   { display: flex; }
+.abs   { position: absolute; }
+.uppercase { text-transform: uppercase; }
+.tight { letter-spacing: -0.03em; }
+.tighter { letter-spacing: -0.055em; }
+.wide  { letter-spacing: 0.28em; }
+.balance { text-wrap: balance; }
+
+/* Filet de reperage (debug grille) — ajoute .show-grid sur .poster */
+.poster.show-grid::after {
+  content: ""; position: absolute; inset: 0; z-index: 99; pointer-events: none;
+  background:
+    linear-gradient(to right, rgba(255,0,0,.25) 1px, transparent 1px) 0 0 / 8.333% 100%,
+    linear-gradient(to bottom, rgba(255,0,0,.25) 1px, transparent 1px) 0 0 / 100% 8.333%;
+}

@@ -1,0 +1,16 @@
+{
+  "name": "studio-graphisme",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Studio de creation d'affiches promo — pipeline HTML/CSS/SVG -> rendu Chromium haute densite (PNG 4x + PDF print).",
+  "scripts": {
+    "render": "node render/render.mjs",
+    "fonts": "bash fonts/download-fonts.sh",
+    "test": "node render/render.mjs templates/poster-template.html --name demo"
+  },
+  "dependencies": {
+    "playwright-core": "^1.49.0",
+    "sharp": "^0.33.5"
+  }
+}

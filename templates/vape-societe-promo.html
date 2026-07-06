@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Vape Société — promo brutaliste</title>
+<link rel="stylesheet" href="../render/poster.css">
+<style>
+  .poster{
+    --ink:#f5f5f7;        /* off-white (texte) */
+    --paper:#0a0a0a;      /* near-black (fond) — univers de la marque */
+    --accent:#ccff33;     /* vert acide, signature 2026 */
+    --line:rgba(245,245,247,.16);
+    --line2:rgba(245,245,247,.30);
+    --dim:rgba(245,245,247,.55);
+    font-family:var(--f-grotesk);
+  }
+
+  /* ---- Structure : tout est posé sur une grille exposée (brutalisme suisse) ---- */
+  .grid{
+    position:absolute; inset:0; z-index:10;
+    display:grid;
+    grid-template-columns:repeat(12,1fr);
+    grid-template-rows:auto 1fr auto auto;
+    border-bottom:1px solid var(--line);
+  }
+  .cell{ border-top:1px solid var(--line); border-left:1px solid var(--line); padding:22px 24px; position:relative; }
+  .cell:last-child{ border-right:1px solid var(--line); }
+
+  /* En-tête */
+  .hdr{ grid-column:1/13; display:flex; justify-content:space-between; align-items:center;
+        border-top:none; padding:26px 24px; }
+  .hdr .mark{ font-family:var(--f-grotesk); font-weight:700; font-size:19px; letter-spacing:.02em; }
+  .hdr .mark sup{ font-size:.55em; vertical-align:top; opacity:.7; }
+  .hdr .meta{ font-size:13px; letter-spacing:.22em; text-transform:uppercase; color:var(--dim);
+              font-variant-numeric:tabular-nums; display:flex; gap:22px; }
+
+  /* Zone héros */
+  .hero{ grid-column:1/13; display:grid; grid-template-columns:auto 1fr auto; align-items:stretch;
+         padding:0; border-left:1px solid var(--line); border-right:1px solid var(--line); }
+  .hero .idx{ writing-mode:vertical-rl; transform:rotate(180deg);
+              padding:24px 18px; font-size:13px; letter-spacing:.3em; text-transform:uppercase;
+              color:var(--dim); border-right:1px solid var(--line); display:flex; align-items:center; }
+  .hero .main{ padding:40px 34px; display:flex; flex-direction:column; justify-content:center; }
+  .kicker{ font-size:16px; letter-spacing:.32em; text-transform:uppercase; color:var(--accent);
+           display:flex; align-items:center; gap:14px; margin-bottom:10px; }
+  .kicker::before{ content:"■"; font-size:.7em; }
+  .huge{ font-family:var(--f-heavy); font-weight:400; line-height:.82; letter-spacing:-.01em;
+         font-size:230px; color:var(--accent); }
+  .huge .pct{ font-family:var(--f-grotesk); font-weight:700; font-size:.28em; vertical-align:top; }
+  .sub{ font-family:var(--f-condensed); font-weight:800; font-size:66px; line-height:.92;
+        text-transform:uppercase; letter-spacing:.005em; margin-top:6px; }
+  .sub b{ color:var(--accent); }
+  .hero .side{ align-self:stretch; border-left:1px solid var(--line); display:flex; flex-direction:column;
+               justify-content:space-between; padding:24px 20px; min-width:150px; }
+  .hero .side .tag{ font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:var(--dim); }
+  .hero .side .big{ font-family:var(--f-grotesk); font-weight:700; font-size:26px; font-variant-numeric:tabular-nums; }
+
+  /* Modules catégories */
+  .mods{ grid-column:1/13; display:grid; grid-template-columns:repeat(4,1fr); }
+  .mod{ border-top:1px solid var(--line); border-left:1px solid var(--line); padding:20px 22px; min-height:132px;
+        display:flex; flex-direction:column; justify-content:space-between; }
+  .mod:first-child{ border-left:none; }
+  .mod .no{ font-size:12px; letter-spacing:.2em; color:var(--dim); font-variant-numeric:tabular-nums; }
+  .mod .nm{ font-family:var(--f-grotesk); font-weight:600; font-size:26px; letter-spacing:-.01em; }
+  .mod .nm small{ display:block; font-weight:400; font-size:13px; color:var(--dim); letter-spacing:0; margin-top:4px; text-transform:none; }
+  .mod .dot{ position:absolute; }
+
+  /* Pied */
+  .foot{ grid-column:1/13; display:grid; grid-template-columns:1.5fr 1fr 1fr; border-left:1px solid var(--line); border-right:1px solid var(--line); }
+  .foot > div{ border-top:1px solid var(--line); border-left:1px solid var(--line); padding:20px 24px; }
+  .foot > div:first-child{ border-left:none; }
+  .foot .lbl{ font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--dim); margin-bottom:6px; }
+  .foot .val{ font-size:16px; font-weight:500; line-height:1.35; }
+  .foot .web{ font-family:var(--f-grotesk); font-weight:700; font-size:22px; }
+  .age{ display:inline-flex; align-items:center; gap:8px; margin-top:8px; font-size:12px; color:var(--dim); }
+  .age b{ display:inline-grid; place-items:center; width:30px; height:30px; border:1.5px solid var(--accent);
+          border-radius:50%; color:var(--accent); font-family:var(--f-grotesk); font-weight:700; font-size:12px; }
+</style>
+</head>
+<body>
+  <div class="poster format-portrait">
+    <div class="grid">
+
+      <header class="hdr">
+        <div class="mark">VAPE&nbsp;SOCIÉTÉ<sup>®</sup></div>
+        <div class="meta"><span>OFFRE N°04</span><span>07 · 2026</span><span>5 BOUTIQUES</span></div>
+      </header>
+
+      <section class="hero">
+        <div class="idx">Saison estivale — index /04</div>
+        <div class="main">
+          <div class="kicker">Soldes d'été</div>
+          <div class="huge">30<span class="pct">%</span></div>
+          <div class="sub">sur tout le<br><b>e-liquide</b> &amp; les pods</div>
+        </div>
+        <aside class="side">
+          <div>
+            <div class="tag">Durée</div>
+            <div class="big">01 → 31.07</div>
+          </div>
+          <div>
+            <div class="tag">Cumulable</div>
+            <div class="big">Non</div>
+          </div>
+          <div>
+            <div class="tag">Format</div>
+            <div class="big">10 / 50 ml</div>
+          </div>
+        </aside>
+      </section>
+
+      <section class="mods">
+        <div class="mod"><span class="no">01</span><span class="nm">E-liquides<small>toutes marques</small></span></div>
+        <div class="mod"><span class="no">02</span><span class="nm">Pods<small>préremplis &amp; recharges</small></span></div>
+        <div class="mod"><span class="no">03</span><span class="nm">Puffs<small>édition limitée</small></span></div>
+        <div class="mod"><span class="no">04</span><span class="nm">Matériel<small>−15% en boutique</small></span></div>
+      </section>
+
+      <footer class="foot">
+        <div>
+          <div class="lbl">Où</div>
+          <div class="val">Bordeaux · Mérignac · Pessac<br>Talence · Villenave</div>
+          <div class="age"><b>18</b> Vente interdite aux mineurs</div>
+        </div>
+        <div>
+          <div class="lbl">Horaires</div>
+          <div class="val">Lun–Sam<br>10h – 19h30</div>
+        </div>
+        <div>
+          <div class="lbl">En ligne</div>
+          <div class="web">vape-societe.fr</div>
+        </div>
+      </footer>
+
+    </div>
+    <div class="grain grain--soft"></div>
+  </div>
+</body>
+</html>

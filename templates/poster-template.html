@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Poster — template</title>
+<link rel="stylesheet" href="../render/poster.css">
+<style>
+  /* ---- Tokens de CE poster (surcharge du design system) ---- */
+  .poster{
+    --ink:#2b1608;      /* brun canelé profond */
+    --paper:#f3e7d0;    /* crème */
+    --accent:#c8481f;   /* cuivre / caramel brûlé */
+    --gold:#b6832f;
+    --muted:#8a6a44;
+  }
+
+  /* Champ d'accent diagonal en fond */
+  .field{
+    position:absolute; inset:-10% -20% auto -20%; height:63%;
+    background:
+      radial-gradient(120% 90% at 30% 20%, #e07a2c 0%, var(--accent) 55%, #8f2f13 100%);
+    transform:rotate(-6deg); transform-origin:top left; z-index:0;
+  }
+  .field::after{ /* liseré fin */
+    content:""; position:absolute; inset:0; border-bottom:2px solid rgba(43,22,8,.35);
+  }
+
+  /* Barre d'en-tête clinique */
+  .head{
+    position:absolute; top:0; left:0; right:0; z-index:20;
+    display:flex; justify-content:space-between; align-items:baseline;
+    padding:5.5% var(--pad) 0;
+    font-family:var(--f-grotesk); font-size:15px; letter-spacing:.24em;
+    text-transform:uppercase; color:var(--paper);
+  }
+  .head .n{ font-variant-numeric:tabular-nums; opacity:.85; }
+
+  /* Bloc titre */
+  .title{ position:absolute; z-index:20; top:16%; left:var(--pad); right:var(--pad); color:var(--paper); }
+  .kicker{
+    font-family:var(--f-grotesk); font-weight:600; font-size:19px;
+    letter-spacing:.34em; text-transform:uppercase; opacity:.9;
+    display:flex; align-items:center; gap:14px;
+  }
+  .kicker::before{ content:""; width:46px; height:2px; background:var(--paper); }
+  .display{
+    font-family:var(--f-fashion); font-weight:400; font-size:206px; line-height:.86;
+    letter-spacing:-.02em; margin-top:18px; text-wrap:balance;
+  }
+  .display em{ font-family:var(--f-editorial); font-style:italic; color:var(--gold); }
+
+  /* Offre — grande accroche promo */
+  .offer{ position:absolute; z-index:20; left:var(--pad); right:var(--pad); bottom:20%; color:var(--ink); }
+  .offer .pct{
+    font-family:var(--f-heavy); font-size:300px; line-height:.8; letter-spacing:-.02em;
+    color:var(--accent); display:flex; align-items:flex-start;
+  }
+  .offer .pct sup{ font-size:.34em; font-family:var(--f-grotesk); font-weight:700; margin-top:.35em; }
+  .offer .when{
+    font-family:var(--f-serif); font-weight:340; font-size:37px; line-height:1.12;
+    max-width:60%; margin-top:6px; color:var(--ink);
+  }
+  .offer .when b{ font-weight:600; }
+
+  /* Pied — infos pratiques en grille */
+  .foot{
+    position:absolute; z-index:20; left:var(--pad); right:var(--pad); bottom:6%;
+    display:grid; grid-template-columns:1.4fr 1fr auto; gap:20px; align-items:end;
+    border-top:2px solid rgba(43,22,8,.25); padding-top:18px;
+    font-family:var(--f-sans); color:var(--ink);
+  }
+  .foot .lbl{ font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:var(--muted); margin-bottom:5px; }
+  .foot .val{ font-size:18px; font-weight:500; line-height:1.25; }
+  .foot .brand{ font-family:var(--f-display); font-weight:700; font-size:26px; text-align:right; letter-spacing:-.02em; }
+
+  /* Sceau rond */
+  .seal{
+    position:absolute; z-index:21; top:15.5%; right:var(--pad); width:150px; height:150px;
+    border:2px solid var(--paper); border-radius:50%;
+    display:grid; place-items:center; text-align:center; color:var(--paper);
+    font-family:var(--f-grotesk); font-size:12px; letter-spacing:.18em; text-transform:uppercase; line-height:1.5;
+    transform:rotate(9deg);
+  }
+</style>
+</head>
+<body>
+  <!-- Format: change la classe (format-portrait | format-square | format-story | format-a3 ...) -->
+  <div class="poster format-portrait">
+    <div class="field"></div>
+
+    <header class="head">
+      <span>Maison Canelé — Bordeaux</span>
+      <span class="n">Été 2026 · N°001</span>
+    </header>
+
+    <div class="seal">Fait<br>maison<br>·</div>
+
+    <div class="title">
+      <div class="kicker">Pâtisserie artisanale</div>
+      <h1 class="display">Cane<em>lés</em></h1>
+    </div>
+
+    <div class="offer">
+      <div class="pct">20<sup>% OFF</sup></div>
+      <p class="when">Tous les <b>samedis</b> de l'été.<br>La douzaine, tout juste sortie du four.</p>
+    </div>
+
+    <footer class="foot">
+      <div>
+        <div class="lbl">Adresse</div>
+        <div class="val">12 rue Sainte-Catherine<br>33000 Bordeaux</div>
+      </div>
+      <div>
+        <div class="lbl">Horaires</div>
+        <div class="val">Mar–Dim<br>7h – 19h30</div>
+      </div>
+      <div class="brand">maisoncanelé.fr</div>
+    </footer>
+
+    <div class="grain"></div>
+  </div>
+</body>
+</html>

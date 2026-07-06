@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../render/poster.css">
+<style>
+  .poster{
+    --paper:#0e0e0e;
+    --ink:#f3ead4;
+    --gold:#d3ae32;
+    --gold-soft:#b8912f;
+    --gold-line:#9c7e2c;
+    --f-title: var(--f-fashion);   /* DM Serif Display — luxe */
+    --f-ital:  var(--f-editorial); /* Instrument Serif */
+    font-family: var(--f-sans);
+  }
+
+  /* ---- Fond : marbre noir veiné d'or ------------------------------------- */
+  .bg{ position:absolute; inset:0; z-index:0;
+    background:
+      radial-gradient(120% 80% at 50% 18%, #1b1810 0%, #121009 34%, #0b0a06 68%, #060503 100%);
+  }
+  .veins{ position:absolute; inset:0; z-index:1; opacity:.5; mix-blend-mode:screen; }
+  .vignette{ position:absolute; inset:0; z-index:2; pointer-events:none;
+    background: radial-gradient(130% 100% at 50% 42%, transparent 46%, rgba(0,0,0,.55) 100%); }
+
+  /* ---- Cadre gravé double filet ----------------------------------------- */
+  .frame{ position:absolute; inset:46px; z-index:5; pointer-events:none;
+    border:2px solid var(--gold-line);
+    box-shadow: inset 0 0 0 6px transparent, 0 0 0 0 transparent; }
+  .frame::after{ content:""; position:absolute; inset:7px;
+    border:1px solid rgba(211,174,50,.55); }
+  .corner{ position:absolute; z-index:6; width:96px; height:96px; }
+  .corner svg{ width:100%; height:100%; }
+  .corner.tl{ top:30px; left:30px; }
+  .corner.tr{ top:30px; right:30px; transform:scaleX(-1); }
+  .corner.bl{ bottom:30px; left:30px; transform:scaleY(-1); }
+  .corner.br{ bottom:30px; right:30px; transform:scale(-1,-1); }
+
+  /* ---- Or métallique (texte) -------------------------------------------- */
+  .gold-fill{
+    background: linear-gradient(168deg,#fbeaa9 0%, #e9cb6e 20%, #d3ae32 44%, #9a7016 60%, #f2dd93 80%, #c19a2b 100%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    -webkit-text-fill-color:transparent;
+  }
+
+  /* ---- Structure -------------------------------------------------------- */
+  .content{ position:absolute; z-index:10; inset:0;
+    padding:104px 118px 100px; display:flex; flex-direction:column; align-items:center;
+    justify-content:center; text-align:center; }
+
+  /* Sceau */
+  .seal{ width:150px; height:150px; }
+  .seal svg{ width:100%; height:100%; }
+
+  .wordmark{ margin-top:20px; font-family:var(--f-title); font-size:31px; letter-spacing:.16em;
+    line-height:1; }
+  .wordmark .sub{ display:block; margin-top:9px; font-family:var(--f-sans); font-weight:600;
+    font-size:9.5px; letter-spacing:.42em; color:rgba(243,234,212,.62); }
+
+  .eyebrow{ margin-top:40px; font-weight:700; font-size:12.5px; letter-spacing:.46em;
+    color:var(--gold); display:flex; align-items:center; gap:14px; }
+  .eyebrow::before,.eyebrow::after{ content:""; width:34px; height:1px;
+    background:linear-gradient(90deg,transparent,var(--gold-soft)); }
+  .eyebrow::after{ transform:scaleX(-1); }
+
+  .title{ font-family:var(--f-title); font-weight:400; font-size:118px; line-height:.9;
+    letter-spacing:-.005em; margin-top:20px;
+    filter: drop-shadow(0 2px 1px rgba(0,0,0,.55)); }
+
+  .lede{ font-family:var(--f-ital); font-style:italic; font-size:37px; line-height:1.05;
+    color:#efe4c6; margin-top:20px; }
+  .lede em{ font-style:italic; color:var(--gold); }
+
+  /* Filet ornemental */
+  .rule{ display:flex; align-items:center; gap:16px; margin-top:34px; width:70%; color:var(--gold-soft); }
+  .rule .ln{ flex:1; height:1px; background:linear-gradient(90deg,transparent,var(--gold-soft) 50%,transparent); }
+  .rule .dot{ font-size:15px; color:var(--gold); }
+
+  /* Poste */
+  .role{ margin-top:34px; }
+  .role .k{ font-family:var(--f-title); font-size:33px; letter-spacing:.02em; line-height:1.12; }
+  .role .t{ margin-top:12px; font-weight:600; font-size:12px; letter-spacing:.36em; color:rgba(243,234,212,.72); }
+
+  /* Avantages */
+  .perks{ margin-top:30px; display:grid; grid-template-columns:1fr 1fr; gap:15px 46px;
+    width:88%; }
+  .perk{ display:flex; align-items:center; gap:12px; text-align:left;
+    font-size:14.5px; letter-spacing:.02em; color:#e9dfc4; }
+  .perk b{ font-weight:600; }
+  .perk .mk{ color:var(--gold); font-size:12px; flex:none; }
+
+  /* Bloc bas : succursales + contact */
+  .foot{ margin-top:54px; width:100%; display:flex; flex-direction:column; align-items:center; }
+  .succ-h{ font-weight:700; font-size:11px; letter-spacing:.4em; color:var(--gold); }
+  .succ{ margin-top:12px; font-family:var(--f-title); font-size:15.5px; letter-spacing:.05em;
+    line-height:1.55; color:#efe4c6; width:96%; }
+  .succ .sep{ color:var(--gold-soft); padding:0 4px; }
+
+  .cta{ margin-top:26px; padding-top:22px; width:78%; position:relative; }
+  .cta::before{ content:""; position:absolute; top:0; left:20%; right:20%; height:1px;
+    background:linear-gradient(90deg,transparent,var(--gold-soft),transparent); }
+  .cta .lbl{ font-weight:600; font-size:11px; letter-spacing:.34em; color:rgba(243,234,212,.68); }
+  .cta .mail{ margin-top:8px; font-family:var(--f-title); font-size:26px; letter-spacing:.01em; }
+  .cta .site{ margin-top:12px; font-weight:700; font-size:11px; letter-spacing:.44em; color:rgba(243,234,212,.55); }
+</style>
+</head>
+<body>
+  <div class="poster format-portrait">
+
+    <div class="bg"></div>
+    <!-- veines de marbre doré -->
+    <svg class="veins" viewBox="0 0 1080 1350" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <defs>
+        <filter id="mrbl"><feTurbulence type="fractalNoise" baseFrequency="0.010 0.020" numOctaves="3" seed="7" result="n"/>
+          <feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0.9 0.8 0.2 0 -1.1"/></filter>
+      </defs>
+      <rect width="1080" height="1350" filter="url(#mrbl)" opacity="0.5"/>
+      <g stroke="#caa23a" fill="none" stroke-width="1" opacity="0.35">
+        <path d="M-20 210 C 220 160, 360 320, 560 250 S 900 120, 1120 300"/>
+        <path d="M-20 980 C 260 900, 430 1080, 640 1000 S 980 900, 1120 1040"/>
+        <path d="M120 -20 C 200 220, 60 420, 180 640 S 120 980, 220 1370" opacity="0.5"/>
+        <path d="M940 -20 C 880 260, 1000 440, 900 700 S 1000 1040, 900 1370" opacity="0.5"/>
+      </g>
+    </svg>
+    <div class="vignette"></div>
+
+    <!-- Cadre + coins -->
+    <div class="frame"></div>
+    <div class="corner tl"><svg viewBox="0 0 96 96" fill="none" stroke="url(#cg)" stroke-width="1.3" stroke-linecap="round"><defs><linearGradient id="cg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fbeaa9"/><stop offset=".5" stop-color="#d3ae32"/><stop offset="1" stop-color="#9a7016"/></linearGradient></defs><path d="M11 11 l5 -5 5 5 -5 5 z" fill="url(#cg)" stroke="none"/><path d="M22 14 C 46 14, 68 15, 84 14"/><path d="M14 22 C 14 46, 15 68, 14 84"/><path d="M23 23 C 41 25, 51 35, 49 51 C 48 61, 40 65, 34 60 C 30 57, 32 49, 38 50"/><circle cx="62" cy="62" r="1.7" fill="url(#cg)" stroke="none"/></svg></div>
+    <div class="corner tr"><svg viewBox="0 0 96 96" fill="none" stroke="url(#cg)" stroke-width="1.3" stroke-linecap="round"><defs><linearGradient id="cg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fbeaa9"/><stop offset=".5" stop-color="#d3ae32"/><stop offset="1" stop-color="#9a7016"/></linearGradient></defs><path d="M11 11 l5 -5 5 5 -5 5 z" fill="url(#cg)" stroke="none"/><path d="M22 14 C 46 14, 68 15, 84 14"/><path d="M14 22 C 14 46, 15 68, 14 84"/><path d="M23 23 C 41 25, 51 35, 49 51 C 48 61, 40 65, 34 60 C 30 57, 32 49, 38 50"/><circle cx="62" cy="62" r="1.7" fill="url(#cg)" stroke="none"/></svg></div>
+    <div class="corner bl"><svg viewBox="0 0 96 96" fill="none" stroke="url(#cg)" stroke-width="1.3" stroke-linecap="round"><defs><linearGradient id="cg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fbeaa9"/><stop offset=".5" stop-color="#d3ae32"/><stop offset="1" stop-color="#9a7016"/></linearGradient></defs><path d="M11 11 l5 -5 5 5 -5 5 z" fill="url(#cg)" stroke="none"/><path d="M22 14 C 46 14, 68 15, 84 14"/><path d="M14 22 C 14 46, 15 68, 14 84"/><path d="M23 23 C 41 25, 51 35, 49 51 C 48 61, 40 65, 34 60 C 30 57, 32 49, 38 50"/><circle cx="62" cy="62" r="1.7" fill="url(#cg)" stroke="none"/></svg></div>
+    <div class="corner br"><svg viewBox="0 0 96 96" fill="none" stroke="url(#cg)" stroke-width="1.3" stroke-linecap="round"><defs><linearGradient id="cg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fbeaa9"/><stop offset=".5" stop-color="#d3ae32"/><stop offset="1" stop-color="#9a7016"/></linearGradient></defs><path d="M11 11 l5 -5 5 5 -5 5 z" fill="url(#cg)" stroke="none"/><path d="M22 14 C 46 14, 68 15, 84 14"/><path d="M14 22 C 14 46, 15 68, 14 84"/><path d="M23 23 C 41 25, 51 35, 49 51 C 48 61, 40 65, 34 60 C 30 57, 32 49, 38 50"/><circle cx="62" cy="62" r="1.7" fill="url(#cg)" stroke="none"/></svg></div>
+
+    <div class="content">
+
+      <!-- Sceau VS -->
+      <div class="seal">
+        <svg viewBox="0 0 180 180" aria-hidden="true">
+          <defs>
+            <linearGradient id="g" x1="0" y1="0" x2="0.4" y2="1">
+              <stop offset="0" stop-color="#fbeaa9"/><stop offset="0.35" stop-color="#d9b53c"/>
+              <stop offset="0.62" stop-color="#9a7016"/><stop offset="0.85" stop-color="#eed488"/>
+              <stop offset="1" stop-color="#c19a2b"/>
+            </linearGradient>
+            <path id="arc" d="M90 90 m -64 0 a 64 64 0 1 1 128 0 a 64 64 0 1 1 -128 0" fill="none"/>
+          </defs>
+          <circle cx="90" cy="90" r="86" fill="none" stroke="url(#g)" stroke-width="1.4"/>
+          <circle cx="90" cy="90" r="80" fill="none" stroke="url(#g)" stroke-width="2.6"/>
+          <circle cx="90" cy="90" r="55" fill="none" stroke="url(#g)" stroke-width="1"/>
+          <text font-family="Inter, sans-serif" font-size="8.6" font-weight="700"
+                letter-spacing="3.2" fill="url(#g)">
+            <textPath href="#arc" startOffset="2%">VAPE&#160;SOCIÉTÉ&#160;&#160;&#8226;&#160;&#160;ARTICLES&#160;POUR&#160;VAPOTEURS&#160;&#160;&#8226;&#160;&#160;</textPath>
+          </text>
+          <text x="90" y="104" text-anchor="middle" font-family="DM Serif Display, serif"
+                font-size="52" fill="url(#g)">VS</text>
+          <text x="90" y="150" text-anchor="middle" font-size="11" fill="url(#g)">&#10022;</text>
+        </svg>
+      </div>
+
+      <div class="wordmark gold-fill">VAPE&nbsp;SOCIÉTÉ<span class="sub">ARTICLES POUR VAPOTEURS</span></div>
+
+      <div class="eyebrow">OFFRE D'EMPLOI</div>
+
+      <h1 class="title gold-fill">NOUS<br>RECRUTONS</h1>
+
+      <p class="lede">Rejoins <em>la Société.</em></p>
+
+      <div class="rule"><span class="ln"></span><span class="dot">&#9670;</span><span class="ln"></span></div>
+
+      <div class="role">
+        <div class="k gold-fill">Conseiller·ère — vente & service</div>
+        <div class="t">TEMPS PLEIN&nbsp;&nbsp;·&nbsp;&nbsp;TEMPS PARTIEL</div>
+      </div>
+
+      <div class="perks">
+        <div class="perk"><span class="mk">&#9670;</span><span><b>Rabais employé</b> avantageux</span></div>
+        <div class="perk"><span class="mk">&#9670;</span><span><b>Formation</b> payée</span></div>
+        <div class="perk"><span class="mk">&#9670;</span><span><b>Équipe</b> dynamique & humaine</span></div>
+        <div class="perk"><span class="mk">&#9670;</span><span><b>Horaires</b> flexibles</span></div>
+      </div>
+
+      <div class="rule" style="margin-top:48px"><span class="ln"></span><span class="dot">&#10022;</span><span class="ln"></span></div>
+
+      <div class="foot">
+        <div class="succ-h">CINQ SUCCURSALES POUR GRANDIR AVEC NOUS</div>
+        <div class="succ">
+          Neufchâtel<span class="sep">·</span>Charlesbourg<span class="sep">·</span>Donnacona<br>
+          Sainte-Catherine-de-la-Jacques-Cartier<span class="sep">·</span>Sainte-Marie
+        </div>
+
+        <div class="cta">
+          <div class="lbl">POSTULE EN SUCCURSALE OU À</div>
+          <div class="mail gold-fill">carrieres@vape-societe.com</div>
+          <div class="site">VAPE-SOCIETE.COM</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="grain grain--soft"></div>
+  </div>
+</body>
+</html>

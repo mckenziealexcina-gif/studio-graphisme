@@ -1,0 +1,8 @@
+node_modules/
+output/
+.DS_Store
+public/.DS_Store
+
+# Secrets Canva — NE JAMAIS COMMITER
+canva/.env
+canva/.canva-token.json
