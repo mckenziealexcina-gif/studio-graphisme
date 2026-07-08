@@ -36,5 +36,14 @@ Le dossier `canva/` permet de pousser tes affiches vers Canva. C'est **personnel
 tu dois créer ta propre intégration (5 min) → voir `canva/README.md`.
 Les identifiants de celui qui t'a envoyé le dossier ne sont **pas** inclus (secrets).
 
+## Assistant guides — générateur de guides PDF (optionnel)
+Un chat en français qui fabrique des guides PDF de marque via un agent Claude.
+Il faut **ta propre clé Anthropic** (chacun la sienne — ça consomme du crédit à l'usage) :
+```bash
+export ANTHROPIC_API_KEY=sk-ant-...   # ta clé (platform.claude.com)
+npm run guides                        # → http://127.0.0.1:3005
+```
+Détails et fonctionnement → `guides/README.md`.
+
 ---
 *Fait avec le studio graphisme. Bon design !*

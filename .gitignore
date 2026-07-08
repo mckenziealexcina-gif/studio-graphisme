@@ -6,3 +6,8 @@ public/.DS_Store
 # Secrets Canva — NE JAMAIS COMMITER
 canva/.env
 canva/.canva-token.json
+
+# Fichiers de travail internes (QR brut, specs) — hors repo public
+public/code*qr*
+public/qr-embauche.png
+public/*.docx
