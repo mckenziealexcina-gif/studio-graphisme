@@ -1,0 +1,9 @@
+{
+  "name": "studio-affiches-web",
+  "private": true,
+  "type": "module",
+  "description": "Éditeur d'affiches Vape Société — site statique + fonction serverless de chat IA (Vercel).",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.110.0"
+  }
+}
